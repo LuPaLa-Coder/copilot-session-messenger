@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "session-messenger",
+  "description": "Discover local GitHub Copilot CLI sessions and exchange authenticated text messages between them.",
+  "version": "0.2.0",
+  "author": {
+    "name": "LuPaLa-Coder"
+  },
+  "license": "MIT",
+  "keywords": [
+    "copilot-cli",
+    "cross-session",
+    "messaging",
+    "multi-agent",
+    "coordination"
+  ],
+  "extensions": {
+    "com.github.awesome-copilot": {
+      "extensions": [
+        "./extensions/session-messenger"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "copilot-session-messenger",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Local cross-session messaging plugin for GitHub Copilot CLI.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check extensions/session-messenger/extension.mjs && node --check extensions/session-messenger/messenger-core.mjs",
+    "test": "node --test test/*.test.mjs",
+    "validate": "npm run check && npm test"
+  },
+  "license": "MIT"
+}
