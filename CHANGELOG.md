@@ -4,6 +4,12 @@ All notable changes are documented in this file.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-10-12
+
+### Changed
+
+- `session_messenger_list` instructs the agent to always show sessions as a table (alias, working folder, start time).
+
 ## [0.2.1] - 2026-10-12
 
 ### Changed

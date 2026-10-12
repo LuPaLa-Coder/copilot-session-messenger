@@ -15,7 +15,7 @@ The design mirrors the useful part of Claude Code cross-session messaging:
 
 This repository contains a local-machine MVP. It supports Linux, macOS, Windows and WSL through
 Unix domain sockets or Windows named pipes. Cross-device and cloud delivery are intentionally out
-of scope for version `0.2.1`.
+of scope for version `0.2.2`.
 
 ## Requirements
 

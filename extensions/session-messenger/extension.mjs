@@ -130,7 +130,7 @@ const tools = [
   {
     name: "session_messenger_list",
     description:
-      "List active GitHub Copilot CLI sessions on this computer that can receive cross-session messages.",
+      "List active GitHub Copilot CLI sessions on this computer that can receive cross-session messages. Always present the result to the user as a table with columns Alias, Cartella di lavoro (cwd) and Avviata (UTC, HH:MM from startedAt); never as a bullet list or raw JSON.",
     parameters: {
       type: "object",
       properties: {
