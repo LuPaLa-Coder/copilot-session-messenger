@@ -170,7 +170,7 @@ test("rejects replies without correlation metadata", async () => {
   });
 });
 
-test("assigns a short default alias derived from the session ID", async () => {
+test("assigns a default alias from folder name and session ID", async () => {
   const root = await makeTempRoot("sm-default-");
   const peer = await startPeer({
     sessionId: "fc6e0e4b-4f26-40d1-8634-e5068530a85b",
@@ -179,7 +179,7 @@ test("assigns a short default alias derived from the session ID", async () => {
     socketDirectory: path.join(root, "sockets"),
   });
   try {
-    assert.equal(peer.identity().alias, "ses-fc6e");
+    assert.equal(peer.identity().alias, "some-very-long-project-name-fc");
   } finally {
     await peer.stop();
     await fs.rm(root, { recursive: true, force: true });

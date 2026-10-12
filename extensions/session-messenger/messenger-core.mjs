@@ -17,8 +17,9 @@ function safeId(value) {
   return crypto.createHash("sha256").update(value).digest("hex").slice(0, 24);
 }
 
-function defaultAlias(sessionId) {
-  return `ses-${sessionId.slice(0, 4)}`;
+function defaultAlias(sessionId, cwd) {
+  const folder = path.basename(cwd) || "ses";
+  return `${folder}-${sessionId.slice(0, 2)}`.slice(0, 64);
 }
 
 async function readSessionName(copilotHome, sessionId) {
@@ -392,7 +393,7 @@ export async function startPeer(options) {
     options.alias ??
       savedIdentity?.alias ??
       (await readSessionName(copilotHome, sessionId)) ??
-      defaultAlias(sessionId)
+      defaultAlias(sessionId, cwd)
   );
 
   if (process.platform !== "win32") await fs.rm(endpoint, { force: true });

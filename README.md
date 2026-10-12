@@ -90,7 +90,7 @@ sender as a correlated reply.
 |---|---|
 | `session_messenger_list` | Lists active local sessions and their aliases |
 | `session_messenger_send` | Sends text using an alias, full session ID, or unique prefix |
-| `session_messenger_identity` | Shows the current identity or changes its persistent alias (default: the Copilot session name, else `ses-` plus the first 4 characters of the session ID, e.g. `ses-fc6e`) |
+| `session_messenger_identity` | Shows the current identity or changes its persistent alias (default: the Copilot session name, else the working folder name plus the first 2 characters of the session ID, e.g. `copilot-session-messenger-ec`) |
 | `session_messenger_inbox` | Reads recent messages persisted for the current session |
 
 ### Delivery modes
