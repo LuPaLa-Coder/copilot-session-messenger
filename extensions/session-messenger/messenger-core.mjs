@@ -21,6 +21,22 @@ function defaultAlias(sessionId) {
   return `ses-${sessionId.slice(0, 4)}`;
 }
 
+async function readSessionName(copilotHome, sessionId) {
+  try {
+    const yaml = await fs.readFile(
+      path.join(copilotHome, "session-state", sessionId, "workspace.yaml"),
+      "utf8"
+    );
+    const match = /^name:[ \t]*(.+)$/m.exec(yaml);
+    if (!match) return null;
+    let name = match[1].trim();
+    if (/^(".*"|'.*')$/.test(name)) name = name.slice(1, -1);
+    return name && name.length <= 64 && !/[\u0000-\u001f\u007f]/.test(name) ? name : null;
+  } catch {
+    return null;
+  }
+}
+
 function normalizeAlias(alias) {
   const value = String(alias ?? "").trim();
   if (!value || value.length > 64 || /[\u0000-\u001f\u007f]/.test(value)) {
@@ -370,8 +386,13 @@ export async function startPeer(options) {
   ]);
 
   const savedIdentity = await readJson(aliasFile);
+  const copilotHome = process.env.COPILOT_HOME || path.join(os.homedir(), ".copilot");
+  let followSessionName = options.alias === undefined && !savedIdentity?.alias;
   let alias = normalizeAlias(
-    options.alias ?? savedIdentity?.alias ?? defaultAlias(sessionId)
+    options.alias ??
+      savedIdentity?.alias ??
+      (await readSessionName(copilotHome, sessionId)) ??
+      defaultAlias(sessionId)
   );
 
   if (process.platform !== "win32") await fs.rm(endpoint, { force: true });
@@ -449,7 +470,11 @@ export async function startPeer(options) {
     throw error;
   }
 
-  const heartbeat = setInterval(() => {
+  const heartbeat = setInterval(async () => {
+    if (followSessionName) {
+      const name = await readSessionName(copilotHome, sessionId);
+      if (name) alias = name;
+    }
     writeJsonAtomic(registryFile, registryEntry()).catch((error) =>
       reportError(options.onError, error)
     );
@@ -504,6 +529,7 @@ export async function startPeer(options) {
 
   async function setAlias(nextAlias) {
     alias = normalizeAlias(nextAlias);
+    followSessionName = false;
     await writeJsonAtomic(aliasFile, { sessionId, alias });
     await writeJsonAtomic(registryFile, registryEntry());
     return { sessionId, alias, cwd };
