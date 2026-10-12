@@ -4,6 +4,12 @@ All notable changes are documented in this file.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-12
+
+### Changed
+
+- Default alias is now the working folder name plus the first 2 characters of the session ID.
+
 ### Fixed
 
 - Unix socket path too long on macOS: the default socket directory now lives under `/tmp`.

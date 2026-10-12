@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "Local cross-session messaging for GitHub Copilot CLI.",
-    "version": "0.2.0"
+    "version": "0.2.1"
   },
   "plugins": [
     {
       "name": "session-messenger",
       "description": "Discover local GitHub Copilot CLI sessions and exchange authenticated text messages between them.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "source": "./"
     }
   ]
